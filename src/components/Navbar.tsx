@@ -19,7 +19,7 @@ export default function Navbar() {
           </div>
         </div>
         <span className="text-xl font-bold tracking-wide text-white group-hover:opacity-80 transition-opacity duration-300">
-          One<span className="text-onelu-blue">LU</span>
+          1 <span className="text-onelu-blue">LU</span>
         </span>
       </Link>
 

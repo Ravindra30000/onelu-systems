@@ -24,7 +24,7 @@ export default function BrandWatermark() {
         </div>
       </div>
       <span className="text-xs font-bold tracking-[0.2em] text-white/50 uppercase group-hover:text-white transition-colors duration-300 pr-2">
-        One<span className="text-onelu-blue">LU</span> Systems
+        1 <span className="text-onelu-blue">LU</span> Systems
       </span>
     </motion.div>
   );

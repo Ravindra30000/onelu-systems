@@ -21,7 +21,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 text-gray-500 text-sm font-medium tracking-wide">
         <div className="flex flex-col gap-3">
-          <span className="text-white text-xl font-bold tracking-tight">OneLU Next Gen Technologies</span>
+          <span className="text-white text-xl font-bold tracking-tight">1 <span className="text-onelu-blue">LU</span> Next Gen Technologies</span>
           <span>&copy; {new Date().getFullYear()} All rights reserved.</span>
         </div>
         
