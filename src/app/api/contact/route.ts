@@ -1,16 +1,24 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+const serviceLabels: Record<string, string> = {
+  web: "Web Development",
+  app: "App Development",
+  dsc: "Digital Signature Certificate (DSC)",
+  workshop: "Workshops & Training",
+  logo: "Logo & Brand Design",
+  general: "General Inquiry",
+};
+
 export async function POST(req: Request) {
   try {
     const data = await req.json();
-    const { name, email, company, inquiryType, message } = data;
+    const { name, email, phone, company, inquiryType, message } = data;
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // Connect securely to Gmail via SMTP
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -19,48 +27,52 @@ export async function POST(req: Request) {
       },
     });
 
-    const humanReadableInquiry = {
-      custom: "Custom System Development",
-      sahsaathi: "Integrating Sah Saathi System",
-      copydude: "Integrating CopyDude Kiosks",
-      hardware: "Hardware / Infrastructure Partnership",
-      general: "General Inquiry",
-    }[inquiryType as string] || inquiryType;
+    const serviceLabel = serviceLabels[inquiryType as string] || inquiryType || "Not specified";
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: '1lunextgenprivatelimited@gmail.com', // Internal delivery
-      replyTo: email as string, // Makes replies go straight to the prospect
-      subject: `New Enterprise Inquiry: ${company ? company + ' (' + name + ')' : name} - ${humanReadableInquiry}`,
+      to: '1lunextgenprivatelimited@gmail.com',
+      replyTo: email as string,
+      subject: `New Enquiry: ${company ? company + ' — ' : ''}${name} | ${serviceLabel}`,
       html: `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 30px; background-color: #f9fbff; border-radius: 12px; border: 1px solid #e2e8f0; max-w-2xl text-color: #1a202c;">
-          <h2 style="color: #1E88E5; font-size: 24px; font-weight: bold; margin-bottom: 24px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">OneLU Incoming Project Lead</h2>
-          
-          <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-            <tr>
-              <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; width: 150px; color: #718096; font-size: 14px; text-transform: uppercase;"><strong>Contact Name</strong></td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; font-size: 16px;">${name}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; color: #718096; font-size: 14px; text-transform: uppercase;"><strong>Email Address</strong></td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; font-size: 16px;"><a href="mailto:${email}" style="color: #1E88E5; text-decoration: none;">${email}</a></td>
-            </tr>
-            <tr>
-              <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; color: #718096; font-size: 14px; text-transform: uppercase;"><strong>Organization</strong></td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; font-size: 16px;">${company || 'Not specified'}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; color: #718096; font-size: 14px; text-transform: uppercase;"><strong>Inquiry Target</strong></td>
-              <td style="padding: 10px 0; border-bottom: 1px solid #e2e8f0; font-size: 16px; font-weight: bold;">${humanReadableInquiry}</td>
-            </tr>
-          </table>
-
-          <h3 style="color: #4a5568; font-size: 16px; text-transform: uppercase; margin-bottom: 12px;">Operational Challenge Details:</h3>
-          <div style="background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 16px; line-height: 1.6; color: #2d3748; white-space: pre-wrap;">${message}</div>
-          
-          <div style="margin-top: 40px; font-size: 12px; color: #a0aec0; text-align: center;">
-            <p>This message was automatically routed from the OneLU Infrastructure Platform.</p>
+        <div style="font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 32px; background: #F9FAFB; border-radius: 12px;">
+          <div style="background: #2B7FE8; border-radius: 8px; padding: 20px 24px; margin-bottom: 24px;">
+            <h2 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 700;">New Enquiry — 1 Lu Next Gen Technologies</h2>
           </div>
+
+          <div style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; margin-bottom: 20px;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 12px 16px; background: #F9FAFB; border-bottom: 1px solid #E5E7EB; font-size: 12px; font-weight: 600; text-transform: uppercase; color: #6B7280; width: 140px;">Name</td>
+                <td style="padding: 12px 16px; border-bottom: 1px solid #E5E7EB; font-size: 15px; color: #111827;">${name}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; background: #F9FAFB; border-bottom: 1px solid #E5E7EB; font-size: 12px; font-weight: 600; text-transform: uppercase; color: #6B7280;">Email</td>
+                <td style="padding: 12px 16px; border-bottom: 1px solid #E5E7EB; font-size: 15px;"><a href="mailto:${email}" style="color: #2B7FE8; text-decoration: none;">${email}</a></td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; background: #F9FAFB; border-bottom: 1px solid #E5E7EB; font-size: 12px; font-weight: 600; text-transform: uppercase; color: #6B7280;">Phone</td>
+                <td style="padding: 12px 16px; border-bottom: 1px solid #E5E7EB; font-size: 15px; color: #111827;">${phone || 'Not provided'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; background: #F9FAFB; border-bottom: 1px solid #E5E7EB; font-size: 12px; font-weight: 600; text-transform: uppercase; color: #6B7280;">Company</td>
+                <td style="padding: 12px 16px; border-bottom: 1px solid #E5E7EB; font-size: 15px; color: #111827;">${company || 'Not provided'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; background: #F9FAFB; font-size: 12px; font-weight: 600; text-transform: uppercase; color: #6B7280;">Service</td>
+                <td style="padding: 12px 16px; font-size: 15px; font-weight: 600; color: #2B7FE8;">${serviceLabel}</td>
+              </tr>
+            </table>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid #E5E7EB; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+            <p style="font-size: 12px; font-weight: 600; text-transform: uppercase; color: #6B7280; margin: 0 0 8px 0;">Message</p>
+            <p style="font-size: 15px; color: #111827; line-height: 1.6; margin: 0; white-space: pre-wrap;">${message}</p>
+          </div>
+
+          <p style="font-size: 12px; color: #9CA3AF; text-align: center; margin: 0;">
+            Sent from 1lutechs.com contact form
+          </p>
         </div>
       `,
     };
@@ -69,7 +81,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true }, { status: 200 });
 
   } catch (error) {
-    console.error("Mail dispatch failure:", error);
-    return NextResponse.json({ error: "API delivery failed context log" }, { status: 500 });
+    console.error("Contact form email error:", error);
+    return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
   }
 }

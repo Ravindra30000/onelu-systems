@@ -1,27 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "OneLU | Infrastructure + Systems Company",
-  description: "Building physical and digital infrastructure systems that solve real-world operational bottlenecks at scale.",
+  title: "1 Lu Next Gen Technologies | Web, App & DSC Services – Raipur",
+  description:
+    "Affordable web development from ₹4,999, Class 3 DSC from ₹825, and full-stack apps that grow with your business. Based in Raipur, Chhattisgarh.",
 };
 
 export const viewport = {
-  themeColor: "#050505",
+  themeColor: "#F9FAFB",
 };
-
-import BrandWatermark from "@/components/BrandWatermark";
 
 export default function RootLayout({
   children,
@@ -29,13 +26,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark antialiased`}
-    >
-      <body className="min-h-screen flex flex-col bg-onelu-bg text-foreground overflow-x-hidden selection:bg-onelu-blue selection:text-white">
-        {children}
-        <BrandWatermark />
+    <html lang="en" className={`${inter.variable} antialiased`}>
+      <body className="min-h-screen flex flex-col bg-lu-bg text-lu-text overflow-x-hidden">
+        <Navbar />
+        <main className="flex-1 flex flex-col">{children}</main>
+        <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );

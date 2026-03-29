@@ -1,43 +1,104 @@
 "use client";
-
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "DSC Pricing", href: "/dsc-pricing" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
   return (
-    <motion.nav 
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md bg-onelu-bg/70 border-b border-onelu-border"
-    >
-      <Link href="/" className="flex items-center gap-3 group">
-        <div className="relative w-10 h-10 rounded-full bg-white/5 border border-white/10 shadow-[0_0_15px_rgba(30,136,229,0.15)] overflow-hidden group-hover:scale-110 group-hover:border-onelu-blue/50 transition-all duration-300 flex items-center justify-center p-1">
-          <div className="relative w-full h-full">
-            <Image src="/onelu-logo.png" alt="OneLU Logo" fill className="object-contain" />
+    <header className="sticky top-0 z-50 bg-white border-b border-lu-border shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 shrink-0">
+            <Image
+              src="/onelu-logo.png"
+              alt="1 Lu Next Gen Technologies"
+              width={38}
+              height={38}
+              className="shrink-0"
+            />
+            <span className="font-bold text-lu-text leading-tight text-sm hidden sm:block">
+              1 Lu Next Gen<br />Technologies
+            </span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  pathname === link.href
+                    ? "text-lu-blue bg-blue-50"
+                    : "text-lu-muted hover:text-lu-text hover:bg-gray-50"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* CTA + Mobile toggle */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/contact"
+              className="hidden md:inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-lu-blue rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Get a Quote
+            </Link>
+            <button
+              onClick={() => setOpen(!open)}
+              className="md:hidden p-2 rounded-lg text-lu-muted hover:text-lu-text hover:bg-gray-100 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
         </div>
-        <span className="text-xl font-bold tracking-wide text-white group-hover:opacity-80 transition-opacity duration-300">
-          1 <span className="text-onelu-blue">LU</span>
-        </span>
-      </Link>
-
-      <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
-        <Link href="#what-we-do" className="hover:text-white transition-colors">What We Do</Link>
-        <Link href="#products" className="hover:text-white transition-colors">Products</Link>
-        <Link href="#philosophy" className="hover:text-white transition-colors">Philosophy</Link>
       </div>
 
-      <div>
-        <button 
-          onClick={() => window.dispatchEvent(new Event('openContactModal'))}
-          className="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white transition-all duration-300 rounded-full group bg-onelu-surface border border-onelu-blue/50 hover:border-onelu-blue hover:bg-onelu-blue/10 overflow-hidden"
-        >
-          <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-onelu-blue pointer-events-none"></span>
-          <span className="relative">Contact Us</span>
-        </button>
-      </div>
-    </motion.nav>
+      {/* Mobile menu */}
+      {open && (
+        <div className="md:hidden bg-white border-t border-lu-border">
+          <nav className="px-4 py-3 flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  pathname === link.href
+                    ? "text-lu-blue bg-blue-50"
+                    : "text-lu-text hover:bg-gray-50"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/contact"
+              onClick={() => setOpen(false)}
+              className="mt-2 px-3 py-2.5 text-sm font-semibold text-white bg-lu-blue rounded-lg text-center hover:bg-blue-700 transition-colors"
+            >
+              Get a Quote
+            </Link>
+          </nav>
+        </div>
+      )}
+    </header>
   );
 }
