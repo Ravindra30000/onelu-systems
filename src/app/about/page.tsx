@@ -120,47 +120,73 @@ export default function AboutPage() {
         </section>
 
         {/* In-house products */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold text-lu-text mb-3">Our In-House Platforms</h2>
-          <p className="text-lu-muted text-sm mb-8">
-            Products built by our team to solve real-world operational problems.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="bg-white border border-lu-border rounded-2xl p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3">
-                <Image
-                  src="/sahsathi-logo.png"
-                  alt="SahSaathi"
-                  width={48}
-                  height={48}
-                  className="rounded-xl"
-                />
-                <div>
-                  <h3 className="font-semibold text-lu-text">SahSaathi</h3>
-                  <p className="text-xs text-lu-muted">Business Assistant Platform</p>
+        <section className="mb-16 rounded-2xl overflow-hidden bg-gray-950 p-8 md:p-10">
+          <div className="mb-8">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-2">Our Products</p>
+            <h2 className="text-2xl font-bold text-white">Built to solve real problems.</h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {/* Sah Saathi */}
+            <div className="border border-white/10 rounded-xl p-6 flex flex-col gap-5 bg-white/[0.03]">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <Image src="/sahsathi-logo.png" alt="Sah Saathi" width={42} height={42} className="rounded-xl" />
+                  <div>
+                    <h3 className="font-bold text-white">Sah Saathi</h3>
+                    <p className="text-xs text-gray-500 mt-0.5">Railway Infrastructure</p>
+                  </div>
                 </div>
+                <span className="shrink-0 px-2.5 py-1 text-xs font-semibold text-green-400 bg-green-400/10 border border-green-400/20 rounded-full">
+                  Govt-backed
+                </span>
               </div>
-              <p className="text-sm text-lu-muted leading-relaxed">
-                A smart business assistant platform designed to help small businesses manage operations, track tasks, and stay organised — built lightweight and mobile-ready.
+              <p className="text-sm text-gray-300 font-medium">
+                A digital coordination system for railway porter services.
               </p>
+              <ul className="space-y-2.5">
+                {[
+                  "Passenger books → Porter responds → Service delivered.",
+                  "Admin-coordinated. Fully regulation-compliant.",
+                  "Selected under MeitY TIDE 2.0. Grant-supported.",
+                ].map((point) => (
+                  <li key={point} className="flex items-start gap-2.5 text-xs text-gray-400">
+                    <span className="mt-1.5 w-1 h-1 rounded-full bg-lu-blue shrink-0" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="bg-white border border-lu-border rounded-2xl p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3">
-                <Image
-                  src="/copydude-logo.png"
-                  alt="CopyDude"
-                  width={48}
-                  height={48}
-                  className="rounded-xl"
-                />
-                <div>
-                  <h3 className="font-semibold text-lu-text">CopyDude</h3>
-                  <p className="text-xs text-lu-muted">Content &amp; Document Service</p>
+
+            {/* CopyDude */}
+            <div className="border border-white/10 rounded-xl p-6 flex flex-col gap-5 bg-white/[0.03]">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <Image src="/copydude-logo.jpg" alt="CopyDude" width={44} height={44} className="rounded-xl shrink-0 object-cover" />
+                  <div>
+                    <h3 className="font-bold text-white">CopyDude</h3>
+                    <p className="text-xs text-gray-500 mt-0.5">PrintTech · EdTech</p>
+                  </div>
                 </div>
+                <span className="shrink-0 px-2.5 py-1 text-xs font-semibold text-lu-blue bg-lu-blue/10 border border-lu-blue/20 rounded-full">
+                  Live
+                </span>
               </div>
-              <p className="text-sm text-lu-muted leading-relaxed">
-                A document handling and content management solution that simplifies copying, organising, and distributing business documents at scale.
+              <p className="text-sm text-gray-300 font-medium">
+                A cloud-powered print kiosk system for instant document printing.
               </p>
+              <ul className="space-y-2.5">
+                {[
+                  "Upload from phone. No app, no USB, no waiting.",
+                  "Walk to kiosk. Enter code. Print in under 2 minutes.",
+                  "Live at GEC Raipur. Expanding to colleges & stations.",
+                ].map((point) => (
+                  <li key={point} className="flex items-start gap-2.5 text-xs text-gray-400">
+                    <span className="mt-1.5 w-1 h-1 rounded-full bg-lu-orange shrink-0" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>

@@ -198,40 +198,80 @@ export default function Home() {
       </section>
 
       {/* ── OUR PRODUCTS ─────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-lu-bg">
+      <section className="py-16 md:py-24 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-lu-text mb-4">Our In-House Platforms</h2>
-            <p className="text-lu-muted text-lg max-w-xl mx-auto">
-              Products built by 1 Lu Next Gen Technologies to solve real-world problems.
-            </p>
+          <div className="mb-12">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Our Products</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Built to solve real problems.
+            </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            <div className="bg-white rounded-2xl border border-lu-border p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3">
-                <Image src="/sahsathi-logo.png" alt="SahSaathi" width={44} height={44} className="rounded-xl" />
-                <div>
-                  <h3 className="font-semibold text-lu-text">SahSaathi</h3>
-                  <p className="text-xs text-lu-muted">Business Assistant Platform</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* Sah Saathi */}
+            <div className="border border-white/10 rounded-2xl p-8 flex flex-col gap-7 bg-white/[0.03] hover:bg-white/[0.06] transition-colors">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <Image src="/sahsathi-logo.png" alt="Sah Saathi" width={44} height={44} className="rounded-xl" />
+                  <div>
+                    <h3 className="font-bold text-white text-lg leading-tight">Sah Saathi</h3>
+                    <p className="text-xs text-gray-500 mt-0.5">Railway Infrastructure</p>
+                  </div>
                 </div>
+                <span className="shrink-0 px-2.5 py-1 text-xs font-semibold text-green-400 bg-green-400/10 border border-green-400/20 rounded-full">
+                  Govt-backed
+                </span>
               </div>
-              <p className="text-sm text-lu-muted leading-relaxed">
-                A smart business assistant platform designed to help small businesses manage operations, track tasks, and stay organised — built lightweight and mobile-ready.
+
+              <p className="text-gray-300 font-medium leading-relaxed">
+                A digital coordination system for railway porter services.
               </p>
+
+              <ul className="space-y-3">
+                {[
+                  "Passenger books → Porter responds → Service delivered.",
+                  "Admin-coordinated. Fully regulation-compliant.",
+                  "Selected under MeitY TIDE 2.0. Grant-supported.",
+                ].map((point) => (
+                  <li key={point} className="flex items-start gap-3 text-sm text-gray-400">
+                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-lu-blue shrink-0" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="bg-white rounded-2xl border border-lu-border p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3">
-                <Image src="/copydude-logo.png" alt="CopyDude" width={44} height={44} className="rounded-xl" />
-                <div>
-                  <h3 className="font-semibold text-lu-text">CopyDude</h3>
-                  <p className="text-xs text-lu-muted">Content & Document Service</p>
+            {/* CopyDude */}
+            <div className="border border-white/10 rounded-2xl p-8 flex flex-col gap-7 bg-white/[0.03] hover:bg-white/[0.06] transition-colors">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <Image src="/copydude-logo.jpg" alt="CopyDude" width={44} height={44} className="rounded-xl shrink-0 object-cover" />
+                  <div>
+                    <h3 className="font-bold text-white text-lg leading-tight">CopyDude</h3>
+                    <p className="text-xs text-gray-500 mt-0.5">PrintTech · EdTech</p>
+                  </div>
                 </div>
+                <span className="shrink-0 px-2.5 py-1 text-xs font-semibold text-lu-blue bg-lu-blue/10 border border-lu-blue/20 rounded-full">
+                  Live
+                </span>
               </div>
-              <p className="text-sm text-lu-muted leading-relaxed">
-                A document handling and content management solution that simplifies copying, organising, and distributing business documents at scale.
+
+              <p className="text-gray-300 font-medium leading-relaxed">
+                A cloud-powered print kiosk system for instant document printing.
               </p>
+
+              <ul className="space-y-3">
+                {[
+                  "Upload from phone. No app, no USB, no waiting.",
+                  "Walk to kiosk. Enter code. Print in under 2 minutes.",
+                  "Live at GEC Raipur. Expanding to colleges & stations.",
+                ].map((point) => (
+                  <li key={point} className="flex items-start gap-3 text-sm text-gray-400">
+                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-lu-orange shrink-0" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
